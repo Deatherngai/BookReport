@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <div>
+            <h3>Scaned Result</h3>
+            {%for i in range(len)%}
+            <div id="item{{i}}" onclick="Fill(this.id)"><label>BookName: {{((query[i])['data'])['BookName_EN']}}</label><label style="margin-left: 40px;">suitability {{(query[i])['sim_rate']}}</label></label></div>
+            {%endfor%}
+        </div>
+        <div>
+            <h2>Reading Report</h2>
+            <form action method="POST">
+                <table>
+                    <tr><td rowspan="7">Book
+                            Image</td><td>BookName</td><td>:</td><td><input
+                                type="text" name="name" id="name" /></td></tr>
+                    <tr><td>Author</td><td>:</td><td><input type="text"
+                                name="author" id="author" /></td></tr>
+                    <tr><td>Publisher</td><td>:</td><td><input type="text"
+                                name="publisher" id="publisher" /></td></tr>
+                    <tr><td>Publish Year</td><td>:</td><td><input type="text"
+                                name="year" id="year" /></td></tr>
+                    <tr><td>Subject</td><td>:</td><td><input type="text"
+                                name="sub" id="sub" /></td></tr>
+                    <tr><td>Language</td><td>:</td><td><input type="text"
+                                name="lang" id="lang" /></td></tr>
+                    <tr><td>ISBN</td><td>:</td><td><input type="text"
+                                name="isbn" id="isbn" /></td></tr>
+                </table>
+                <label>Reading Feeling</label><br />
+                <textarea rows="7"
+                    cols="50">Please write down your feeling after reading the book.</textarea>
+                <input type="submit" />
+            </form>
+        </div>
+    </body>
+    <script type="text/javascript">
+        function Fill(id){
+            n = parseInt(id.replace("item",""));
+            data =  JSON.parse('{{query|tojson}}');
+            console.log(data[n]);
+            document.getElementById('name').value = data[n]['data']['BookName_EN'];
+            document.getElementById('author').value = data[n]['data']['Author'];
+            document.getElementById('publisher').value = data[n]['data']['Publication'];
+            document.getElementById('year').value = data[n]['data']['Publication_Year'];
+            document.getElementById('sub').value = data[n]['data']['Subject'];
+            document.getElementById('lang').value = data[n]['data']['Language'];
+            document.getElementById('isbn').value = data[n]['data']['ISBN'];
+        }
+    </script>
+</html>

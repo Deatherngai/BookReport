@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>File Upload</title>
+    </head>
+    <body>
+        <form action="/display" method="POST"
+            enctype="multipart/form-data">
+            <img id="blah" src="#" alt="your image"
+                style="width: 2in;height: 3in;" />
+            <input type="file" name="file" id="file"
+                onchange="PreviewImage(this)" />
+            <br>
+            <input type="submit" />
+            <br>
+        </form>
+    </body>
+    <script type="text/javascript">
+        function PreviewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById("blah").src = e.target.result;
+                    console.log(e.target.result);
+                    };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</html>
